@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@100&family=Work+Sans:wght@300&display=swap');
+@import './vars.css';
+
+body {
+  font-family: "Work Sans", sans-serif;
+  font-size: 1.5vw;
+}
+
+h1 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 5vw;
+}
+
+h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 3vw;
+}
+
+p {
+  font-size: 1.5vw;
+}
+
+.tags-text {
+  font-family: "Barlow", sans-serif;
+  font-size: 1.5vw;
+}
