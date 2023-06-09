@@ -5,7 +5,7 @@ import BaseWidget2 from "@/components/widgets/base_widgets/BaseWidget2.vue";
 <template>
   <BaseWidget2 :title="'Weight Tracker'"
                :description="descriptionText"
-               :img-path="'./src/assets/images/weight_watchers.png'"
+               :img-path="'./public/images/weight_watchers.png'"
                :tags="'#FullStack #VueJS #FastAPI'"
                :url="'git@github.com:martonroux/weight_watcher.git'"/>
 </template>

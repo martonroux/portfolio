@@ -4,7 +4,7 @@ import BaseWidget1 from "@/components/widgets/base_widgets/BaseWidget1.vue";
 
 <template>
   <BaseWidget1 :title="'Pneumonia X-Ray model'"
-               :img-path="'./src/assets/images/xray.jpeg'"
+               :img-path="'./public/images/xray.jpeg'"
                :description="descriptionText"
                :url="'https://github.com/martonroux/xray_pneumonia'"
                :tags="'#CNN #Python #Keras'"/>
