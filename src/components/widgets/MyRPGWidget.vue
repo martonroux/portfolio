@@ -5,7 +5,7 @@ import BaseWidget1 from "@/components/widgets/base_widgets/BaseWidget1.vue";
 
 <template>
   <BaseWidget1 :title="'MyRPG'"
-               :img-path="'src/assets/images/myrpg.png'"
+               :img-path="'./src/assets/images/myrpg.png'"
                :description="descriptionText"
                :tags="'#AI #Algo #C'"
                :url="'https://github.com/martonroux/myrpg'"/>
