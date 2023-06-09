@@ -17,11 +17,11 @@ import CorewarWidget from "@/components/widgets/CorewarWidget.vue";
   </header>
 
   <main>
-    <MyRPGWidget/>
+    <CorewarWidget/>
     <Need4StekWidget/>
     <XRayWidget/>
     <WeightWatchersWidget/>
-    <CorewarWidget/>
+    <MyRPGWidget/>
   </main>
 </template>
 
