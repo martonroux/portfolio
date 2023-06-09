@@ -4,7 +4,7 @@ import BaseWidget2 from "@/components/widgets/base_widgets/BaseWidget2.vue";
 
 <template>
   <BaseWidget2 :title="'Need4Stek'"
-               :img-path="'./public/images/need4stek.png'"
+               :img-path="'./images/need4stek.png'"
                :description="descriptionText"
                :url="'https://github.com/martonroux/n4s'" :tags="'#AI #Algo #Python'"/>
 </template>
