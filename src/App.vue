@@ -3,6 +3,7 @@ import MyRPGWidget from "@/components/widgets/MyRPGWidget.vue";
 import Need4StekWidget from "@/components/widgets/Need4StekWidget.vue";
 import XRayWidget from "@/components/widgets/XRayWidget.vue";
 import WeightWatchersWidget from "@/components/widgets/WeightWatchersWidget.vue";
+import CorewarWidget from "@/components/widgets/CorewarWidget.vue";
 </script>
 
 <template>
@@ -20,6 +21,7 @@ import WeightWatchersWidget from "@/components/widgets/WeightWatchersWidget.vue"
     <Need4StekWidget/>
     <XRayWidget/>
     <WeightWatchersWidget/>
+    <CorewarWidget/>
   </main>
 </template>
 
