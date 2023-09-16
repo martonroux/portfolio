@@ -1,11 +1,13 @@
 <script setup>
-import Header from "@/components/Header.vue";
+import Menu from "@/components/Menu.vue";
+import MyHeader from "@/components/Header.vue";
 </script>
 
 <template>
   <header>
-    <Header />
+    <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
+  <Menu :is-shown="showMenu" @clicked="onMenuPageClick" />
   <h1>
     Titre
   </h1>
@@ -25,6 +27,24 @@ import Header from "@/components/Header.vue";
     Paragraphe
   </p>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      showMenu: false,
+    }
+  },
+  methods: {
+    onMenuButtonClick(active) {
+      this.showMenu = active;
+    },
+    onMenuPageClick(menu) {
+      this.showMenu = false;
+    }
+  }
+}
+</script>
 
 <style scoped>
 </style>

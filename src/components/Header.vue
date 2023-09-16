@@ -28,14 +28,30 @@
 export default {
   data() {
     return {
-      clickActive: true
+      clickActive: false
     }
   },
   emits: ["clicked"],
+  props: {
+    isShown: {
+      required: true,
+      type: Boolean
+    }
+  },
   methods: {
     onClick() {
-      this.$emit('clicked');
       this.clickActive = !this.clickActive;
+      this.$emit('clicked', this.clickActive);
+    }
+  },
+  mounted() {
+    this.clickActive = this.isShown;
+  },
+  watch: {
+    isShown(newValue, _) {
+      if (newValue === false) {
+        this.clickActive = false;
+      }
     }
   }
 }
@@ -50,6 +66,7 @@ export default {
 
 .menu-button {
   position: absolute;
+  z-index: 9999999;
   top: calc((var(--grid-size) - (var(--grid-size) / 2)) / 2);
   left: calc(var(--grid-size) + ((var(--grid-size) - (var(--grid-size) / 2)) / 2));
 
@@ -72,7 +89,7 @@ export default {
 .line-1 {
   /* Ligne du haut */
 
-  transform-origin: center left;
+  transform-origin: center right;
 }
 .line-2 {
   /* Ligne à droite */
@@ -84,7 +101,7 @@ export default {
   /* Ligne en bas */
 
   top: calc(var(--grid-size) / 2);
-  transform-origin: center right;
+  transform-origin: center left;
 }
 .line-4 {
   /* Ligne à gauche */
@@ -96,13 +113,13 @@ export default {
 }
 
 .click-active > .line-1 {
-  transform: translateY(0) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2)));
+  transform: translateY(calc(var(--grid-size) / 2)) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
 }
 .click-active > .line-2 {
-  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
+  transform: translateY(calc(var(--grid-size) / 2)) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
 }
 .click-active > .line-3 {
-  transform: translateY(0) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
+  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2)));
 }
 .click-active > .line-4 {
   transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) - 1px)) translateY(-1px);

@@ -3,9 +3,214 @@
 </script>
 
 <template>
-
+  <div class="menu" :style="{
+    display: (display || isShown) ? 'block' : 'none',
+    backgroundColor: isReallyShow ? 'rgba(20, 20, 20, 50%)' : 'transparent',
+    backdropFilter: isReallyShow ? 'blur(12px)' : 'blur(0px)'}">
+    <div class="morpion-grid" :style="{display: isReallyShow ? 'grid' : 'none'}">
+      <div class="cross">
+        <span class="line-1" />
+        <span class="line-2" />
+      </div>
+      <div class="text-container">
+        <button class="hover-background" @click="onClick('contact')">
+          <span class="h5">CONTACT</span>
+        </button>
+      </div>
+      <div class="cross">
+        <span class="line-1" />
+        <span class="line-2" />
+      </div>
+      <div class="text-container">
+        <button class="hover-background" @click="onClick('work')">
+          <span class="h5">WORK</span>
+        </button>
+      </div>
+      <div class="text-container">
+        <button class="hover-background" @click="onClick('menu')">
+          <span class="h5">MENU</span>
+        </button>
+      </div>
+      <div class="circle-container">
+        <div class="circle" />
+      </div>
+      <div class="circle-container">
+        <div class="circle" />
+      </div>
+      <div class="text-container">
+        <button class="hover-background" @click="onClick('stack')">
+          <span class="h5">STACK</span>
+        </button>
+      </div>
+      <span />
+    </div>
+  </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      display: false,
+      isReallyShow: false
+    }
+  },
+  props: {
+    isShown: {
+      required: true,
+      type: Boolean
+    }
+  },
+  emits: ['clicked'],
+  mounted() {
+    this.isReallyShow = this.isShown;
+  },
+  watch: {
+    isShown(newValue, _) {
+      if (newValue === false) {
+        this.isReallyShow = false;
+        setTimeout(() => {
+          this.display = false;
+        }, 300);
+      } else {
+        this.display = true;
+        setTimeout(() => {
+          this.isReallyShow = true;
+        }, 5)
+      }
+    }
+  },
+  methods: {
+    onClick(menu) {
+      this.$emit('clicked', menu);
+    }
+  }
+}
+</script>
+
 <style scoped>
+
+.menu {
+  position: absolute;
+
+  padding-top: var(--grid-size);
+  width: 100vw;
+  height: 100vh;
+
+  top: 0;
+  left: 0;
+
+  transition: background-color, backdrop-filter 0.2s ease-in-out;
+}
+
+.morpion-grid {
+  display: grid; /* overriden by :style */
+  grid-template-columns: repeat(3, calc(var(--grid-size) * 2));
+  grid-gap: 0;
+
+  width: 90%;
+  max-width: 432px;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  margin: 0 auto;
+
+  transform: translateY(calc((100vh - var(--grid-size)) / 2 - 50% - var(--grid-size)));
+}
+
+.morpion-grid > * {
+  height: calc(var(--grid-size) * 2);
+}
+.morpion-grid > *:nth-child(1) {
+  border-bottom: 1px solid var(--white-color);
+  border-right: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(2) {
+  border-bottom: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(3) {
+  border-bottom: 1px solid var(--white-color);
+  border-left: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(4) {
+  border-right: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(6) {
+  border-left: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(7) {
+  border-top: 1px solid var(--white-color);
+  border-right: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(8) {
+  border-top: 1px solid var(--white-color);
+}
+.morpion-grid > *:nth-child(9) {
+  border-top: 1px solid var(--white-color);
+  border-left: 1px solid var(--white-color);
+}
+
+.line-1,
+.line-2 {
+  position: absolute;
+
+  width: var(--grid-size);
+  height: 2px;
+
+  background-color: var(--white-color);
+}
+.line-1 {
+  transform: translate(calc(var(--grid-size) / 2 * -1), var(--grid-size)) rotate(45deg);
+}
+.line-2 {
+  transform: translate(calc(var(--grid-size) / 2 * -1), var(--grid-size)) rotate(-45deg);
+}
+.circle {
+  height: var(--grid-size);
+  width: var(--grid-size);
+  border-radius: 50%;
+
+  background-color: var(--white-color);
+}
+.circle-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+p {
+  margin: 0;
+}
+.text-container {
+  padding: 0.5rem;
+}
+button {
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  color: var(--white-color);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight);
+}
+.hover-background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 100%;
+
+  cursor: pointer;
+  transition: color, background-color 0.2s ease-in-out;
+}
+.hover-background:hover {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  font-weight: 600;
+}
 
 </style>
