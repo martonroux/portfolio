@@ -4,7 +4,7 @@
 
 <template>
   <div class="header">
-    <div @click="onClick" class="menu-button">
+    <div @click="onClick" class="menu-button" :class="{'click-active': clickActive, 'click-inactive': !clickActive}">
       <span class="line-1" />
       <span class="line-2" />
       <span class="line-3" />
@@ -26,10 +26,16 @@
 
 <script>
 export default {
+  data() {
+    return {
+      clickActive: true
+    }
+  },
   emits: ["clicked"],
   methods: {
     onClick() {
       this.$emit('clicked');
+      this.clickActive = !this.clickActive;
     }
   }
 }
@@ -65,6 +71,8 @@ export default {
 }
 .line-1 {
   /* Ligne du haut */
+
+  transform-origin: center left;
 }
 .line-2 {
   /* Ligne à droite */
@@ -76,6 +84,7 @@ export default {
   /* Ligne en bas */
 
   top: calc(var(--grid-size) / 2);
+  transform-origin: center right;
 }
 .line-4 {
   /* Ligne à gauche */
@@ -84,6 +93,19 @@ export default {
 
   transform: rotate(-90deg);
   transform-origin: top left;
+}
+
+.click-active > .line-1 {
+  transform: translateY(0) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2)));
+}
+.click-active > .line-2 {
+  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
+}
+.click-active > .line-3 {
+  transform: translateY(0) rotate(45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) * -1));
+}
+.click-active > .line-4 {
+  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) - 1px)) translateY(-1px);
 }
 
 .portfolio-text {
@@ -102,16 +124,16 @@ export default {
 }
 
 @media (hover: hover) {
-  .menu-button:hover > .line-2 {
+  .click-inactive:hover > .line-2 {
     transform: rotate(0) translateY(400%);
   }
-  .menu-button:hover > .line-4 {
+  .click-inactive:hover > .line-4 {
     transform: rotate(0) translateY(-400%);
   }
-  .menu-button:hover > .line-1 {
+  .click-inactive:hover > .line-1 {
     transform: translateY(400%);
   }
-  .menu-button:hover > .line-3 {
+  .click-inactive:hover > .line-3 {
     transform: translateY(-400%);
   }
 }
