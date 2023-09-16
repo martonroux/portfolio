@@ -21,6 +21,9 @@
       <div class="portfolio-text-letter">I</div>
       <div class="portfolio-text-letter">O</div>
     </div>
+    <div class="portfolio-text-phone">
+      <h3>PORTFOLIO</h3>
+    </div>
   </div>
 </template>
 
@@ -95,7 +98,7 @@ export default {
   /* Ligne à droite */
 
   transform: rotate(-90deg);
-  transform-origin: bottom right;
+  transform-origin: center right;
 }
 .line-3 {
   /* Ligne en bas */
@@ -109,7 +112,7 @@ export default {
   top: calc(var(--grid-size) / 2);
 
   transform: rotate(-90deg);
-  transform-origin: top left;
+  transform-origin: center left;
 }
 
 .click-active > .line-1 {
@@ -139,6 +142,21 @@ export default {
   font-size: var(--h3-font-size);
   opacity: 40%;
 }
+.portfolio-text-phone {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.portfolio-text-phone > h3 {
+  margin: 0;
+
+  font-weight: lighter;
+  letter-spacing: 0.4rem;
+  opacity: 40%;
+
+  transform: translateY(calc((var(--grid-size) - 100%) / 2));
+}
 
 @media (hover: hover) {
   .click-inactive:hover > .line-2 {
@@ -155,4 +173,21 @@ export default {
   }
 }
 
+@media (max-width: 1000px) {
+  .portfolio-text {
+    display: none;
+  }
+  .portfolio-text-phone {
+    display: block;
+  }
+  .menu-button {
+    left: calc(var(--grid-size) / 2);
+  }
+}
+
+@media (max-width: 470px) {
+  .portfolio-text-phone > h3 {
+    font-size: var(--h4-font-size);
+  }
+}
 </style>

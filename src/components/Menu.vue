@@ -105,7 +105,7 @@ export default {
 
 .morpion-grid {
   display: grid; /* overriden by :style */
-  grid-template-columns: repeat(3, calc(var(--grid-size) * 2));
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 0;
 
   width: 90%;
@@ -121,7 +121,8 @@ export default {
 }
 
 .morpion-grid > * {
-  height: calc(var(--grid-size) * 2);
+  height: calc((100vw * 0.95) / 3);
+  max-height: calc(var(--grid-size) * 2);
 }
 .morpion-grid > *:nth-child(1) {
   border-bottom: 1px solid var(--white-color);
@@ -211,6 +212,10 @@ button {
   background-color: var(--white-color);
   color: var(--black-color);
   font-weight: 600;
+}
+
+@media (max-width: 490px) {
+  
 }
 
 </style>
