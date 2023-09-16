@@ -1,3 +1,22 @@
 :root {
-    --widget-img-size: 30vw;
+    /* COLORS */
+
+    --black-color: #0F0F0F;
+    --white-color: #EDEAE8;
+
+    /* FONT */
+
+    --font-family: "Metropolis", sans-serif;
+    --body-size: 16px;
+    --font-size-ratio: 1.414;
+    --h5-font-size: calc(var(--body-size) * var(--font-size-ratio));
+    --h4-font-size: calc(var(--h5-font-size) * var(--font-size-ratio));
+    --h3-font-size: calc(var(--h4-font-size) * var(--font-size-ratio));
+    --h2-font-size: calc(var(--h3-font-size) * var(--font-size-ratio));
+    --h1-font-size: calc(var(--h2-font-size) * var(--font-size-ratio));
+    --font-weight: normal;
+
+    /* OTHER */
+
+    --grid-size: 72px;
 }
