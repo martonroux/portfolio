@@ -98,7 +98,6 @@ export default {
     },
     onWindowResize() {
       this.windowHeight = window.innerHeight;
-      console.log(this.windowHeight)
     },
     handleClickOutside(event) {
       if (this.isShown === false) return;

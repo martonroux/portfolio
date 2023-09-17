@@ -1,7 +1,7 @@
 <script setup>
 import Menu from "@/components/Menu/Menu.vue";
 import MyHeader from "@/components/Header.vue";
-import Home from "@/components/Home.vue";
+import Home from "@/components/Home/Home.vue";
 </script>
 
 <template>

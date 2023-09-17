@@ -3,6 +3,7 @@
 
     --black-color: #0F0F0F;
     --white-color: #EDEAE8;
+    --chess-grid-color: rgba(237, 234, 232, 40%);
 
     /* FONT */
 
@@ -20,4 +21,7 @@
 
     --grid-size: 72px;
     --grid-diagonal: 102px;
+    --chess-board-small-height: calc(0.0947 * 100vh);
+    --chess-board-small-width: calc(0.099 * 100vw);
+    --call-to-action-width: calc(0.714 * 100vw);
 }
