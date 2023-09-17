@@ -65,6 +65,7 @@ export default {
 .header {
   height: var(--grid-size);
   width: 100%;
+  background-color: transparent;
 }
 
 .menu-button {
@@ -92,7 +93,7 @@ export default {
 .line-1 {
   /* Ligne du haut */
 
-  transform-origin: center right;
+  transform-origin: bottom right;
 }
 .line-2 {
   /* Ligne à droite */
@@ -104,7 +105,7 @@ export default {
   /* Ligne en bas */
 
   top: calc(var(--grid-size) / 2);
-  transform-origin: center left;
+  transform-origin: bottom left;
 }
 .line-4 {
   /* Ligne à gauche */

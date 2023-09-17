@@ -1,6 +1,7 @@
 <script setup>
-import Menu from "@/components/Menu.vue";
+import Menu from "@/components/Menu/Menu.vue";
 import MyHeader from "@/components/Header.vue";
+import Home from "@/components/Home.vue";
 </script>
 
 <template>
@@ -8,24 +9,7 @@ import MyHeader from "@/components/Header.vue";
     <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
   <Menu :is-shown="showMenu" @clicked="onMenuPageClick" />
-  <h1>
-    Titre
-  </h1>
-  <h2>
-    Sous-titre
-  </h2>
-  <h3>
-    Sous-sous-titre
-  </h3>
-  <h4>
-    Sous-sous-sous-titre
-  </h4>
-  <h5>
-    Sous-sous-sous-sous-titre
-  </h5>
-  <p>
-    Paragraphe
-  </p>
+  <Home />
 </template>
 
 <script>
@@ -47,4 +31,14 @@ export default {
 </script>
 
 <style scoped>
+
+header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: var(--grid-size);
+  width: 100vw;
+  background-color: transparent;
+}
+
 </style>

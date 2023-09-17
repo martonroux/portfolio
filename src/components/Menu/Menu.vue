@@ -1,13 +1,14 @@
 <script setup>
-
+import MenuSmallHeight from "@/components/Menu/MenuSmallHeight.vue";
 </script>
 
 <template>
-  <div class="menu" :style="{
+  <div class="menu" ref="menu" :style="{
     display: (display || isShown) ? 'block' : 'none',
     backgroundColor: isReallyShow ? 'rgba(20, 20, 20, 50%)' : 'transparent',
-    backdropFilter: isReallyShow ? 'blur(12px)' : 'blur(0px)'}">
-    <div class="morpion-grid" :style="{display: isReallyShow ? 'grid' : 'none'}">
+    backdropFilter: isReallyShow ? 'blur(12px)' : 'blur(0px)'
+  }">
+    <div class="morpion-grid" v-if="windowHeight > 600" :style="{display: isReallyShow ? 'grid' : 'none'}">
       <div class="cross">
         <span class="line-1" />
         <span class="line-2" />
@@ -44,6 +45,8 @@
       </div>
       <span />
     </div>
+
+    <MenuSmallHeight v-else @clicked="onClick" :style="{display: isReallyShow ? 'flex' : 'none'}" />
   </div>
 </template>
 
@@ -52,7 +55,8 @@ export default {
   data() {
     return {
       display: false,
-      isReallyShow: false
+      isReallyShow: false,
+      windowHeight: 0
     }
   },
   props: {
@@ -64,6 +68,14 @@ export default {
   emits: ['clicked'],
   mounted() {
     this.isReallyShow = this.isShown;
+
+    window.addEventListener('resize', () => {this.onWindowResize()});
+    document.addEventListener('click', this.handleClickOutside);
+    this.onWindowResize();
+  },
+  unmounted() {
+    window.removeEventListener('resize', () => {this.onWindowResize()});
+    document.removeEventListener('click', (event) => this.handleClickOutside(event));
   },
   watch: {
     isShown(newValue, _) {
@@ -83,6 +95,19 @@ export default {
   methods: {
     onClick(menu) {
       this.$emit('clicked', menu);
+    },
+    onWindowResize() {
+      this.windowHeight = window.innerHeight;
+      console.log(this.windowHeight)
+    },
+    handleClickOutside(event) {
+      if (this.isShown === false) return;
+      const el = this.$refs.menu;
+      console.log('Clicked', el)
+
+      if (el && !el.contains(event.target)) {
+        console.log('Clicked outside the element');
+      }
     }
   }
 }
@@ -117,7 +142,7 @@ export default {
 
   margin: 0 auto;
 
-  transform: translateY(calc((100vh - var(--grid-size)) / 2 - 50% - var(--grid-size)));
+  transform: translateY(calc(50vh - 50% - var(--grid-size)));
 }
 
 .morpion-grid > * {
@@ -212,10 +237,6 @@ button {
   background-color: var(--white-color);
   color: var(--black-color);
   font-weight: 600;
-}
-
-@media (max-width: 490px) {
-  
 }
 
 </style>
