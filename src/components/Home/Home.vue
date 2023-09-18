@@ -1,5 +1,6 @@
 <script setup>
 import CallToActionButton from "@/components/Home/CallToActionButton.vue";
+import ConvinceTab from "@/components/Home/ConvinceTab.vue";
 </script>
 
 <template>
@@ -25,9 +26,9 @@ import CallToActionButton from "@/components/Home/CallToActionButton.vue";
       <div class="content" ref="homeContent" @scroll="scrolled">
         <div class="scroll-forcer"></div>
         <div class="tabs">
-          BACKGROUND
-          SKILLS
-          WHY ME?
+          <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
+          <ConvinceTab title="SKILLS" :description="skillsDescription" />
+          <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
         </div>
         <div class="scroll-forcer"></div>
       </div>
@@ -41,7 +42,11 @@ export default {
     return {
       blurr: 0,
       text: [],
-      chessLeft: false
+      chessLeft: false,
+      scrolling: false,
+      backgroundDescription: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
+      skillsDescription: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
+      whyMeDescription: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work."
     }
   },
   mounted() {
@@ -95,6 +100,7 @@ h1 {
   width: 100%;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
 }
 .scroll-forcer {
   scroll-snap-align: start;
@@ -104,9 +110,16 @@ h1 {
 }
 .tabs {
   scroll-snap-align: start;
+
+  display: flex;
+  flex-direction: row;
+
+  gap: var(--grid-size);
+  align-items: center;
+  justify-content: center;
+
   min-height: calc(100vh - var(--grid-size));
   width: 100%;
-  border: 1px solid red;
 }
 .chess-board {
   position: absolute;
