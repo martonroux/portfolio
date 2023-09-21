@@ -99,17 +99,17 @@ h1 {
   height: 100%;
   width: 100%;
   overflow-y: scroll;
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   scroll-behavior: smooth;
 }
 .scroll-forcer {
-  scroll-snap-align: start;
   height: calc(100vh - var(--grid-size));
   width: 1px;
   background-color: transparent;
 }
+.scroll-forcer:not(:first-of-type) {
+}
 .tabs {
-  scroll-snap-align: start;
 
   display: flex;
   flex-direction: row;
