@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Regular.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-RegularItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Black.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 900;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-BlackItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 900;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Bold.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-BoldItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 700;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-ExtraBold.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 800;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-ExtraBoldItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 800;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-ExtraLight.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 200;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-ExtraLightItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 200;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Light.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-LightItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 300;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Medium.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-MediumItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 500;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-SemiBold.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-SemiBoldItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 600;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-Thin.otf");
+    font-stretch: normal;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 100;
+}
+@font-face {
+    font-family: 'Metropolis';
+    src: url("Metropolis-ThinItalic.otf");
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-weight: 100;
+}
