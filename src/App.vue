@@ -1,7 +1,6 @@
 <script setup>
-import Menu from "@/components/Menu/Menu.vue";
-import MyHeader from "@/components/Header.vue";
-import Home from "@/components/Home/Home.vue";
+import Menu from "@/views/Menu/Menu.vue";
+import MyHeader from "@/views/Header.vue";
 </script>
 
 <template>
@@ -9,10 +8,12 @@ import Home from "@/components/Home/Home.vue";
     <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
   <Menu :is-shown="showMenu" @clicked="onMenuPageClick" />
-  <Home />
+  <router-view />
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   data() {
     return {
@@ -25,6 +26,7 @@ export default {
     },
     onMenuPageClick(menu) {
       this.showMenu = false;
+      router.push(menu);
     }
   }
 }

@@ -1,6 +1,6 @@
 <script setup>
-import CallToActionButton from "@/components/Home/CallToActionButton.vue";
-import ConvinceTab from "@/components/Home/ConvinceTab.vue";
+import CallToActionButton from "@/views/Home/CallToActionButton.vue";
+import ConvinceTab from "@/views/Home/ConvinceTab.vue";
 </script>
 
 <template>
@@ -16,16 +16,16 @@ import ConvinceTab from "@/components/Home/ConvinceTab.vue";
       </div>
     </div>
     <div class="call-to-action" :class="{'show-cta': chessLeft}" :style="{zIndex: (blurr === 0  && chessLeft) ? 99999 : 0}">
-      <CallToActionButton text="CONTACT" />
-      <CallToActionButton text="WORK" />
-      <CallToActionButton text="STACK" />
+      <CallToActionButton text="CONTACT" @click="onClick('/contact')" />
+      <CallToActionButton text="WORK" @click="onClick('/work')" />
+      <CallToActionButton text="STACK" @click="onClick('/stack')" />
     </div>
     <div class="blurr-background" :style="{
       backdropFilter: 'blur(' + blurr.toString() + 'px)'
       }">
       <div class="content" ref="homeContent" @scroll="scrolled">
-        <div class="scroll-forcer"></div>
-        <div class="tabs">
+        <div class="scroll-forcer" ref="scrollForcer"></div>
+        <div class="tabs" ref="tabs">
           <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
           <ConvinceTab title="SKILLS" :description="skillsDescription" />
           <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
@@ -37,6 +37,8 @@ import ConvinceTab from "@/components/Home/ConvinceTab.vue";
 </template>
 
 <script>
+import router from "@/router";
+
 export default {
   data() {
     return {
@@ -59,17 +61,26 @@ export default {
   methods: {
     scrolled() {
       const homeContent = this.$refs.homeContent;
+      const scrollForcer = this.$refs.scrollForcer;
+      const tabs = this.$refs.tabs;
 
-      if (!homeContent) return;
-      const height = homeContent.offsetHeight;
+      if (!homeContent || !scrollForcer || !tabs) return;
+      const height = scrollForcer.offsetHeight;
+      const tabsHeight = tabs.offsetHeight;
       const scrollY = homeContent.scrollTop;
 
       if (scrollY < height) {
-        this.blurr = scrollY / 80;
+        this.blurr = scrollY / 100;
       } else {
-        this.blurr = (height * 2 - scrollY) / 80;
+        this.blurr = (height + tabsHeight - scrollY) / 100;
       }
-      this.chessLeft = scrollY > height * 1.5;
+      if (this.blurr > 8) {
+        this.blurr = 8;
+      }
+      this.chessLeft = scrollY > (height + tabsHeight * 0.6);
+    },
+    onClick(menu) {
+      router.push(menu)
     }
   }
 }
@@ -107,19 +118,20 @@ h1 {
   width: 1px;
   background-color: transparent;
 }
-.scroll-forcer:not(:first-of-type) {
-}
 .tabs {
-
   display: flex;
   flex-direction: row;
+
+  flex-wrap: wrap;
 
   gap: var(--grid-size);
   align-items: center;
   justify-content: center;
 
   min-height: calc(100vh - var(--grid-size));
-  width: 100%;
+  width: calc(100% - 6rem);
+
+  margin: 0 3rem 0 3rem;
 }
 .chess-board {
   position: absolute;

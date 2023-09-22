@@ -1,20 +1,20 @@
 <script setup>
-import MenuSmallHeight from "@/components/Menu/MenuSmallHeight.vue";
+import MenuSmallHeight from "@/views/Menu/MenuSmallHeight.vue";
 </script>
 
 <template>
   <div class="menu" ref="menu" :style="{
-    display: (display || isShown) ? 'block' : 'none',
-    backgroundColor: isReallyShow ? 'rgba(20, 20, 20, 50%)' : 'transparent',
-    backdropFilter: isReallyShow ? 'blur(12px)' : 'blur(0px)'
-  }">
+        display: (display || isShown) ? 'block' : 'none',
+        backgroundColor: isReallyShow ? 'rgba(20, 20, 20, 50%)' : 'transparent',
+        backdropFilter: isReallyShow ? 'blur(12px)' : 'blur(0px)'
+      }">
     <div class="morpion-grid" v-if="windowHeight > 600" :style="{display: isReallyShow ? 'grid' : 'none'}">
       <div class="cross">
         <span class="line-1" />
         <span class="line-2" />
       </div>
       <div class="text-container">
-        <button class="hover-background" @click="onClick('contact')">
+        <button class="hover-background" @click="onClick('/contact')">
           <span class="h5">CONTACT</span>
         </button>
       </div>
@@ -28,7 +28,7 @@ import MenuSmallHeight from "@/components/Menu/MenuSmallHeight.vue";
         </button>
       </div>
       <div class="text-container">
-        <button class="hover-background" @click="onClick('menu')">
+        <button class="hover-background" @click="onClick('/')">
           <span class="h5">MENU</span>
         </button>
       </div>
@@ -133,7 +133,7 @@ export default {
   grid-gap: 0;
 
   width: 90%;
-  max-width: 432px;
+  max-width: calc(var(--grid-size) * 6);
 
   align-items: center;
   justify-content: center;
@@ -145,8 +145,7 @@ export default {
 }
 
 .morpion-grid > * {
-  height: calc((100vw * 0.95) / 3);
-  max-height: calc(var(--grid-size) * 2);
+  height: calc(var(--grid-size) * 2);
 }
 .morpion-grid > *:nth-child(1) {
   border-bottom: 1px solid var(--white-color);
@@ -236,6 +235,29 @@ button {
   background-color: var(--white-color);
   color: var(--black-color);
   font-weight: 600;
+}
+@media (max-width: 480px) {
+  .line-1,
+  .line-2 {
+    width: var(--menu-grid-portion);
+  }
+  .line-1 {
+    transform: translate(calc(var(--menu-grid-portion) / 2 * -1), var(--menu-grid-portion)) rotate(45deg);
+  }
+  .line-2 {
+    transform: translate(calc(var(--menu-grid-portion) / 2 * -1), var(--menu-grid-portion)) rotate(-45deg);
+  }
+  .circle {
+    width: var(--menu-grid-portion);
+    height: var(--menu-grid-portion);
+  }
+  .morpion-grid > * {
+    height: calc(var(--menu-grid-portion) * 2);
+    width: calc(var(--menu-grid-portion) * 2);
+  }
+  .h5 {
+    font-size: 1.2rem;
+  }
 }
 
 </style>

@@ -33,7 +33,7 @@ export default {
 
 .convince-tab {
   width: calc(var(--grid-size) * 5);
-  height: calc(var(--grid-size) * 5);
+  min-height: calc(var(--grid-size) * 6);
 }
 .title-wrapper {
   background-color: var(--white-color);
@@ -45,10 +45,10 @@ export default {
 }
 .description-wrapper {
   backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 40%);
+  background-color: rgba(0, 0, 0, 65%);
   padding: calc(var(--grid-size) / 2);
 
-  height: 100%;
+  min-height: calc(var(--grid-size) * 5);
 }
 .square {
   display: inline-block;
@@ -68,6 +68,11 @@ export default {
 p {
   margin: 0;
   line-height: 1.25;
+}
+@media (max-width: 470px) {
+  .h4 {
+    font-size: var(--h5-font-size);
+  }
 }
 
 </style>
