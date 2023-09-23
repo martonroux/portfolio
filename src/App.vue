@@ -37,7 +37,8 @@ export default {
 <style scoped>
 
 header {
-  position: absolute;
+  position: fixed;
+  z-index: 10;
   top: 0;
   left: 0;
   height: var(--grid-size);

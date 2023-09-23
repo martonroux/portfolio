@@ -114,7 +114,8 @@ export default {
 <style scoped>
 
 .menu {
-  position: absolute;
+  position: fixed;
+  z-index: 0;
 
   padding-top: var(--grid-size);
   width: 100vw;

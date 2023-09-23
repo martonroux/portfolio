@@ -66,11 +66,13 @@ export default {
   height: var(--grid-size);
   width: 100%;
   background-color: transparent;
+
+  position: fixed;
+  z-index: 10;
 }
 
 .menu-button {
   position: absolute;
-  z-index: 9999999;
   top: calc((var(--grid-size) - (var(--grid-size) / 2)) / 2);
   left: calc(var(--grid-size) + ((var(--grid-size) - (var(--grid-size) / 2)) / 2));
 

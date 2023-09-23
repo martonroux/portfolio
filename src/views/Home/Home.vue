@@ -4,7 +4,21 @@ import ConvinceTab from "@/views/Home/ConvinceTab.vue";
 </script>
 
 <template>
-  <div class="home">
+  <div class="home" @scroll="scrolled" ref="homeContent">
+    <div class="scroll-forcer" ref="scrollForcer"></div>
+    <div class="tabs" ref="tabs">
+      <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
+      <ConvinceTab title="SKILLS" :description="skillsDescription" />
+      <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
+    </div>
+    <div class="scroll-forcer"></div>
+  </div>
+  <div class="fixed-content">
+    <div class="blurr-background" :style="{
+      backgroundColor: `rgba(0, 0, 0, ${blurr}%)`,
+      backdropFilter: `blur(${blurr}px)`
+    }">
+    </div>
     <div class="chess-board" :class="{'chess-left': chessLeft}">
       <div class="slot" v-for="idx in 64" :style="{
         borderTop: (idx > 8) ? '1px solid var(--chess-grid-color)' : 'none',
@@ -19,19 +33,6 @@ import ConvinceTab from "@/views/Home/ConvinceTab.vue";
       <CallToActionButton text="CONTACT" @click="onClick('/contact')" />
       <CallToActionButton text="WORK" @click="onClick('/work')" />
       <CallToActionButton text="STACK" @click="onClick('/stack')" />
-    </div>
-    <div class="blurr-background" :style="{
-      backdropFilter: 'blur(' + blurr.toString() + 'px)'
-      }">
-      <div class="content" ref="homeContent" @scroll="scrolled">
-        <div class="scroll-forcer" ref="scrollForcer"></div>
-        <div class="tabs" ref="tabs">
-          <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
-          <ConvinceTab title="SKILLS" :description="skillsDescription" />
-          <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
-        </div>
-        <div class="scroll-forcer"></div>
-      </div>
     </div>
   </div>
 </template>
@@ -57,22 +58,28 @@ export default {
     for (let i = 0; i < sentence.length; i++) {
       this.text[i] = sentence[i];
     }
+
+    window.addEventListener('scroll', this.scrolled);
+    this.scrolled();
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.scrolled);
   },
   methods: {
     scrolled() {
-      const homeContent = this.$refs.homeContent;
       const scrollForcer = this.$refs.scrollForcer;
       const tabs = this.$refs.tabs;
 
-      if (!homeContent || !scrollForcer || !tabs) return;
+      if (!scrollForcer || !tabs) return;
       const height = scrollForcer.offsetHeight;
       const tabsHeight = tabs.offsetHeight;
-      const scrollY = homeContent.scrollTop;
+      const scrollY = window.scrollY;
 
       if (scrollY < height) {
         this.blurr = scrollY / 100;
       } else {
-        this.blurr = (height + tabsHeight - scrollY) / 100;
+        this.blurr = (height + tabsHeight - scrollY - 50) / 100;
+        if (this.blurr < 0) this.blurr = 0;
       }
       if (this.blurr > 8) {
         this.blurr = 8;
@@ -89,11 +96,10 @@ export default {
 <style scoped>
 
 .home {
-  position: absolute;
-  z-index: -1;
-  height: 100vh;
+  position: relative;
+
+  height: 100%;
   width: 100vw;
-  overflow: hidden;
 }
 
 h1 {
@@ -101,20 +107,24 @@ h1 {
 }
 
 .blurr-background {
+  position: absolute;
+  z-index: 5;
   padding-top: var(--grid-size);
 
   height: 100vh;
   width: 100vw;
 }
-.content {
-  height: 100%;
-  width: 100%;
-  overflow-y: scroll;
-  scroll-snap-type: y proximity;
-  scroll-behavior: smooth;
+.fixed-content {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+
+  height: 100vh;
+  width: 100vw;
 }
 .scroll-forcer {
-  height: calc(100vh - var(--grid-size));
+  height: calc(100vh);
   width: 1px;
   background-color: transparent;
 }
@@ -135,6 +145,8 @@ h1 {
 }
 .chess-board {
   position: absolute;
+  z-index: 0;
+
   top: var(--grid-size);
   left: 0;
   transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size)));
@@ -216,6 +228,9 @@ h1 {
   .h3 {
     font-weight: 200;
     font-size: var(--h4-font-size);
+  }
+  .chess-left {
+    opacity: 40%;
   }
 }
 @media (max-height: 500px) {
