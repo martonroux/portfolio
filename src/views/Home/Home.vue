@@ -27,7 +27,8 @@ import ConvinceTab from "@/views/Home/ConvinceTab.vue";
     </div>
     <div class="chess-board" :class="{'chess-left': chessLeft}" :style="{
       height: chessBoardSize,
-      width: chessBoardSize
+      width: chessBoardSize,
+      transform: chessTransform
     }">
       <div class="slot" v-for="idx in 64" :style="{
         borderTop: (idx > 8) ? '1px solid var(--chess-grid-color)' : 'none',
@@ -55,6 +56,7 @@ export default {
       scrolling: false,
       gridMaxSize: 'var(--grid-size)',
       chessBoardSize: 'calc(var(--grid-size) * 8)',
+      chessTransform: 'transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2))',
       backgroundDescription: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
       skillsDescription: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
       whyMeDescription: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work."
@@ -70,13 +72,16 @@ export default {
     window.addEventListener('scroll', () => {
       this.scrolled();
       this.setGridSize();
+      this.setChessTransforms();
     });
     window.addEventListener('resize', () => {
       this.scrolled();
       this.setGridSize();
+      this.setChessTransforms();
     });
     this.scrolled();
     this.setGridSize();
+    this.setChessTransforms();
   },
   unmounted() {
     window.removeEventListener('scroll', this.scrolled);
@@ -121,6 +126,24 @@ export default {
       } else {
         this.gridMaxSize = 'var(--chess-board-small-height)';
         this.chessBoardSize = 'calc(var(--chess-board-small-height) * 8)'
+      }
+    },
+    setChessTransforms() {
+      // WHEN NORMAL: transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2));
+      // WHEN LEFT: transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
+      // WHEN LEFT, WIDTH < 1150px: transform: translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - 50%));
+
+      const width = window.innerWidth;
+      const boardSize = this.chessBoardSize.substring(5, this.chessBoardSize.length - 1);
+
+      if (this.chessLeft === true) {
+        if (width < 1150) {
+          this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+        } else {
+          this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+        }
+      } else {
+        this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
       }
     },
     onClick(menu) {
@@ -184,7 +207,6 @@ h1 {
 
   top: var(--grid-size);
   left: 0;
-  transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2));
 
   transition: all 0.8s ease-in-out;
 
@@ -209,13 +231,11 @@ h1 {
 }
 .chess-left {
   transition: all 0.8s ease-in-out;
-
-  transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
 }
 .h3 {
   margin: 0;
   font-weight: 300;
-  color: rgba(255, 255, 255, 65%);
+  color: rgba(255, 255, 255, 75%);
 }
 
 .call-to-action {
@@ -242,7 +262,6 @@ h1 {
 
 @media (max-width: 1150px) {
   .chess-left {
-    transform: translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - 50%));
   }
   .call-to-action {
     transform: translate(calc(-100vw + 100% + var(--grid-size)), calc((100vh - var(--grid-size)) / 2 * -1 + 50%));
