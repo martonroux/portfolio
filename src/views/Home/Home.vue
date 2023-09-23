@@ -67,6 +67,7 @@ export default {
   },
   methods: {
     scrolled() {
+      console.log(window.innerHeight);
       const scrollForcer = this.$refs.scrollForcer;
       const tabs = this.$refs.tabs;
       const scrollY = window.scrollY;
@@ -89,8 +90,6 @@ export default {
         this.blurr = 8;
       }
       this.chessLeft = scrollY > (height + tabsHeight * 0.6);
-
-      console.log(this.blurr, this.chessLeft, scrollY, height, tabsHeight);
     },
     onClick(menu) {
       router.push(menu)
