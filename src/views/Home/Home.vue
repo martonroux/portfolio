@@ -60,7 +60,6 @@ export default {
     }
 
     window.addEventListener('scroll', this.scrolled);
-    window.scrollTo(0, 0);
     this.scrolled();
   },
   unmounted() {
@@ -70,11 +69,15 @@ export default {
     scrolled() {
       const scrollForcer = this.$refs.scrollForcer;
       const tabs = this.$refs.tabs;
+      const scrollY = window.scrollY;
 
+      if (scrollY === 0) {
+        this.blurr = 0;
+        return;
+      }
       if (!scrollForcer || !tabs) return;
       const height = scrollForcer.offsetHeight;
       const tabsHeight = tabs.offsetHeight;
-      const scrollY = window.scrollY;
 
       if (scrollY < height) {
         this.blurr = scrollY / 100;
