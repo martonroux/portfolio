@@ -60,6 +60,8 @@ export default {
     }
 
     window.addEventListener('scroll', this.scrolled);
+    window.scrollTo(0, 0);
+    this.scrolled();
   },
   unmounted() {
     window.removeEventListener('scroll', this.scrolled);
