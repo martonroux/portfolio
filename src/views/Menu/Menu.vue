@@ -115,7 +115,7 @@ export default {
 
 .menu {
   position: fixed;
-  z-index: 0;
+  z-index: 9;
 
   padding-top: var(--grid-size);
   width: 100vw;
