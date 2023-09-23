@@ -151,6 +151,8 @@ h1 {
 .chess-board > * {
   height: var(--grid-size);
   width: var(--grid-size);
+
+  transition: all 0.8s ease-in-out;
 }
 .slot {
   display: flex;
@@ -160,7 +162,7 @@ h1 {
 .chess-left {
   transition: all 0.8s ease-in-out;
 
-  transform: translate(var(--grid-size), calc(50vh - 50% - var(--grid-size)));
+  transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
 }
 
 .h3 {
@@ -177,7 +179,7 @@ h1 {
   opacity: 0;
   transition: opacity 0.3s ease-out;
 
-  transform: translate(calc(((100vw - var(--grid-size) * 9) / 2 - 50%) * -1), calc(100vh / 2 - 50%));
+  transform: translate(calc(((100vw - var(--grid-size) * 9) / 2 - 50%) * -1), calc((100vh + var(--grid-size)) / 2 - 50%));
 
   pointer-events: none;
 }
@@ -200,6 +202,14 @@ h1 {
     height: calc(var(--chess-board-small-height) * 8);
     width: calc(var(--chess-board-small-height) * 8);
     grid-template-columns: repeat(8, var(--chess-board-small-height));
+
+    transform: translate(calc(100vw / 2 - 50%), calc((100vh - var(--grid-size)) / 2 - 50%));
+  }
+  .chess-left {
+    transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
+  }
+  .call-to-action > *:not(:last-of-type) {
+    margin-bottom: calc(var(--grid-size) / 2);
   }
 }
 @media (max-height: 600px) {
@@ -208,12 +218,17 @@ h1 {
     font-size: var(--h4-font-size);
   }
 }
+@media (max-height: 500px) {
+  .call-to-action > *:not(:last-of-type) {
+    margin-bottom: calc(var(--grid-size) / 4);
+  }
+}
 @media (max-width: 1100px) {
   .chess-left {
-    transform: translate(calc(100vw - var(--grid-size) - 20vw), calc(50vh - 50% - var(--grid-size)));
+    transform: translate(calc(100vw - var(--grid-size) - 20vw), calc((100vh - var(--grid-size)) / 2 - 50%));
   }
   .call-to-action {
-    transform: translate(calc((100vw - var(--grid-size) - 100%) * -1), calc(100vh / 2 - 50%));
+    transform: translate(calc((100vw - var(--grid-size) - 100%) * -1), calc((100vh + var(--grid-size)) / 2 - 50%));
   }
 }
 @media (max-width: 700px) {

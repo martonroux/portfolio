@@ -141,6 +141,7 @@ export default {
 }
 .portfolio-text > div {
   font-size: var(--h3-font-size);
+  font-weight: 200;
   opacity: 40%;
 }
 .portfolio-text-phone {

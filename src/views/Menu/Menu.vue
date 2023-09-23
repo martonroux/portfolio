@@ -102,10 +102,9 @@ export default {
     handleClickOutside(event) {
       if (this.isShown === false) return;
       const el = this.$refs.menu;
-      console.log('Clicked', el)
 
-      if (el && !el.contains(event.target)) {
-        console.log('Clicked outside the element');
+      if (!(el && !el.contains(event.target))) {
+        this.$emit('clicked', '')
       }
     }
   }
@@ -218,7 +217,9 @@ button {
   margin: 0;
   color: var(--white-color);
   font-family: var(--font-family);
-  font-weight: var(--font-weight);
+}
+.h5 {
+  font-weight: 200;
 }
 .hover-background {
   display: flex;

@@ -3,32 +3,32 @@
 </script>
 
 <template>
-  <div class="menu-small">
+  <div class="menu-small" ref="menu">
     <div class="cross">
       <span class="line-1" />
       <span class="line-2" />
     </div>
     <span class="inter-line" />
     <div class="text-container">
-      <button class="hover-background" @click="onClick('contact')">
+      <button class="hover-background" @click="onClick('/contact')">
         <span class="h5">CONTACT</span>
       </button>
     </div>
     <span class="inter-line" />
     <div class="text-container">
-      <button class="hover-background" @click="onClick('contact')">
+      <button class="hover-background" @click="onClick('/work')">
         <span class="h5">WORK</span>
       </button>
     </div>
     <span class="inter-line" />
     <div class="text-container">
-      <button class="hover-background" @click="onClick('contact')">
+      <button class="hover-background" @click="onClick('/')">
         <span class="h5">MENU</span>
       </button>
     </div>
     <span class="inter-line" />
     <div class="text-container">
-      <button class="hover-background" @click="onClick('contact')">
+      <button class="hover-background" @click="onClick('/stack')">
         <span class="h5">STACK</span>
       </button>
     </div>
@@ -42,9 +42,20 @@
 <script>
 export default {
   emits: ['clicked'],
+  mounted() {
+    document.addEventListener('click', this.handleClickOutside);
+  },
   methods: {
     onClick(page) {
       this.$emit('clicked', page);
+    },
+    handleClickOutside(event) {
+      if (this.isShown === false) return;
+      const el = this.$refs.menu;
+
+      if (!(el && !el.contains(event.target))) {
+        this.$emit('clicked', '')
+      }
     }
   }
 }
@@ -77,7 +88,9 @@ button {
   margin: 0;
   color: var(--white-color);
   font-family: var(--font-family);
-  font-weight: var(--font-weight);
+}
+.h5 {
+  font-weight: 200;
 }
 .hover-background {
   display: flex;

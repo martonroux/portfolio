@@ -26,6 +26,8 @@ export default {
     },
     onMenuPageClick(menu) {
       this.showMenu = false;
+
+      if (menu === '') return;
       router.push(menu);
     }
   }
