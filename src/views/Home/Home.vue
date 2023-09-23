@@ -181,7 +181,6 @@ h1 {
 
   transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
 }
-
 .h3 {
   margin: 0;
   font-weight: 500;
@@ -222,9 +221,6 @@ h1 {
 
     transform: translate(calc(100vw / 2 - 50%), calc((100vh - var(--grid-size)) / 2 - 50%));
   }
-  .chess-left {
-    transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
-  }
   .call-to-action > *:not(:last-of-type) {
     margin-bottom: calc(var(--grid-size) / 2);
   }
@@ -262,13 +258,13 @@ h1 {
     grid-template-columns: repeat(8, var(--chess-board-small-width));
   }
   .chess-left > * {
-    height: var(--chess-board-small-height);
-    width: var(--chess-board-small-height);
+    height: var(--grid-size);
+    width: var(--grid-size);
   }
   .chess-left {
-    height: calc(var(--chess-board-small-height) * 8);
-    width: calc(var(--chess-board-small-height) * 8);
-    grid-template-columns: repeat(8, var(--chess-board-small-height));
+    height: calc(var(--grid-size) * 8);
+    width: calc(var(--grid-size) * 8);
+    grid-template-columns: repeat(8, var(--grid-size));
   }
   .h3 {
     font-weight: 200;
