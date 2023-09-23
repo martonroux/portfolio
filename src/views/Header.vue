@@ -194,4 +194,10 @@ export default {
     font-size: var(--h4-font-size);
   }
 }
+
+@media (max-width: 350px) {
+  .portfolio-text-phone > h3 {
+    font-size: var(--h5-font-size);
+  }
+}
 </style>

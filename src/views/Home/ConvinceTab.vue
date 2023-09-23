@@ -73,6 +73,17 @@ p {
   .h4 {
     font-size: var(--h5-font-size);
   }
+  .convince-tab {
+    width: calc(100vw - var(--grid-size));
+  }
+}
+@media (max-width: 350px) {
+  .convince-tab {
+    width: 95vw;
+  }
+  .description-wrapper {
+    padding: calc(var(--grid-size) / 4);
+  }
 }
 
 </style>

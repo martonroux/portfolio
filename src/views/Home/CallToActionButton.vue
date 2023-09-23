@@ -34,6 +34,7 @@ export default {
   background-color: var(--white-color);
   height: var(--grid-size);
   width: calc(var(--grid-size) * 5);
+  max-width: calc(100vw - var(--grid-size));
 
   cursor: pointer;
 
@@ -85,16 +86,24 @@ export default {
 }
 
 @media (max-width: 700px) {
-  .call-to-action-button {
-    width: var(--call-to-action-width);
-    max-width: calc(var(--grid-size) * 5);
-  }
   .h4 {
     font-size: var(--h5-font-size);
   }
   .line-1,
   .line-2 {
     width: calc(var(--grid-size) / 2.7);
+  }
+}
+@media (max-height: 500px) {
+  .call-to-action-button {
+    height: calc(var(--grid-size) * 0.7);
+  }
+  .h4 {
+    font-size: var(--h5-font-size);
+  }
+  .line-1,
+  .line-2 {
+    width: calc(var(--grid-size) / 3);
   }
 }
 
