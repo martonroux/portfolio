@@ -33,7 +33,6 @@ export default {
 
 .convince-tab {
   width: calc(var(--grid-size) * 5);
-  min-height: calc(var(--grid-size) * 6);
 }
 .title-wrapper {
   background-color: var(--white-color);
@@ -48,7 +47,6 @@ export default {
   background-color: rgba(0, 0, 0, 65%);
   padding: calc(var(--grid-size) / 2);
 
-  min-height: calc(var(--grid-size) * 5);
 }
 .square {
   display: inline-block;
@@ -77,9 +75,9 @@ p {
     width: calc(100vw - var(--grid-size));
   }
 }
-@media (max-width: 350px) {
+@media (max-width: 470px) {
   .convince-tab {
-    width: 95vw;
+    width: 100%;
   }
   .description-wrapper {
     padding: calc(var(--grid-size) / 4);

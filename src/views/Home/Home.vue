@@ -7,7 +7,7 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
 <template>
   <div class="home" @scroll="scrolled" ref="homeContent">
     <div class="scroll-forcer" ref="scrollForcer"></div>
-    <div class="tabs" ref="tabs">
+    <div class="tabs" ref="tabs" style="z-index: 10">
       <ChangeLanguage @clicked="changeLanguage" />
       <div class="row-div">
         <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
@@ -16,7 +16,9 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
       </div>
     </div>
     <div class="scroll-forcer">
-      <div class="call-to-action" :class="{'show-cta': chessLeft}">
+      <div class="call-to-action" :class="{'show-cta': chessLeft}" :style="{
+        zIndex: chessLeft ? 10 : -1,
+      }">
         <CallToActionButton text="CONTACT" @click="onClick('/contact')" />
         <CallToActionButton text="WORK" @click="onClick('/work')" />
         <CallToActionButton text="STACK" @click="onClick('/stack')" />
@@ -50,6 +52,7 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
 
 <script lang="ts">
 import router from "@/router";
+import {computeChessTransform} from "@/views/Home/ts_components/computeChessTransform";
 
 export default {
   data() {
@@ -60,7 +63,8 @@ export default {
       scrolling: false,
       gridMaxSize: 'var(--grid-size)',
       chessBoardSize: 'calc(var(--grid-size) * 8)',
-      chessTransform: 'transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2))',
+      chessTransform: 'translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2))',
+      ctaTransform: '',
       backgroundDescriptionEN: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
       skillsDescriptionEN: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
       whyMeDescriptionEN: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work.",
@@ -122,7 +126,7 @@ export default {
       if (this.blurr > 8) {
         this.blurr = 8;
       }
-      this.chessLeft = scrollY > (height + tabsHeight * 0.6);
+      this.chessLeft = scrollY > (height + tabsHeight - 180);
     },
     setGridSize() {
       const width = window.innerWidth;
@@ -142,71 +146,7 @@ export default {
       }
     },
     setChessTransforms() {
-      // WHEN NORMAL: transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2));
-      // WHEN LEFT: transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
-      // WHEN LEFT, WIDTH < 1150px: transform: translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - 50%));
-
-      const width: number = window.innerWidth;
-      const boardSize: string = this.chessBoardSize.substring(5, this.chessBoardSize.length - 1);
-      const boardOrientation: string = boardSize.includes('height') ? 'height' : 'width';
-      const chessBoardSmallHeight: number = 0.0947 * window.innerHeight * 8;
-      const chessBoardSmallWidth: number = 0.099 * width * 8;
-      const chessBoardNormal: number = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size').substring(0, 2)) * 8;
-
-      if (this.chessLeft === true) { // If chessLeft is true, chessBoard goes to the left of the screen
-        if (width < 1150) { // If width too small, chessLeft goes to the right of the screen
-          switch (boardOrientation) {
-            case 'height': // If chessBoard size is defined by --chess-board-small-height
-              if (chessBoardNormal < chessBoardSmallHeight) {
-                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
-              } else {
-                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
-              }
-              break;
-            case 'width': // If chessBoard size is defined by --chess-board-small-width
-              if (chessBoardNormal < chessBoardSmallWidth) {
-                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
-              } else {
-                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
-              }
-              break;
-          }
-        } else { // Any other case, chessLeft goes to the left of the screen
-          switch (boardOrientation) {
-            case 'height': // If chessBoard size is defined by --chess-board-small-height
-              if (chessBoardNormal < chessBoardSmallHeight) {
-                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
-              } else {
-                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
-              }
-              break;
-            case 'width': // If chessBoard size is defined by --chess-board-small-width
-              if (chessBoardNormal < chessBoardSmallWidth) {
-                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
-              } else {
-                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
-              }
-              break;
-          }
-        }
-      } else { // If chessLeft is false, chessBoard goes to the center of the screen
-        switch (boardOrientation) {
-          case 'height': // If chessBoard size is defined by --chess-board-small-height
-            if (chessBoardNormal < chessBoardSmallHeight) {
-              this.chessTransform = `translate(calc(100vw / 2 - var(--grid-size) * 8 / 2), calc(50vh - var(--grid-size) * 8 / 2 - var(--grid-size) / 2))`;
-            } else {
-              this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
-            }
-            break;
-          case 'width': // If chessBoard size is defined by --chess-board-small-width
-            if (chessBoardNormal < chessBoardSmallWidth) {
-              this.chessTransform = `translate(calc(100vw / 2 - var(--grid-size) * 8 / 2), calc(50vh - var(--grid-size) * 8 / 2 - var(--grid-size) / 2))`;
-            } else {
-              this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
-            }
-            break;
-        }
-      }
+      this.chessTransform = computeChessTransform(this.chessBoardSize, this.chessLeft);
     },
     changeLanguage(lang) {
       switch (lang) {
@@ -331,7 +271,7 @@ h1 {
   flex-direction: column;
   align-items: center;
 
-  min-height: calc(100vh - var(--grid-size));
+  /*min-height: calc(100vh - var(--grid-size));*/
   width: 100vw;
 }
 .row-div {
@@ -342,6 +282,8 @@ h1 {
 
   gap: var(--grid-size);
   justify-content: center;
+
+  width: 95vw;
 }
 .chess-board {
   position: absolute;
@@ -376,21 +318,21 @@ h1 {
 }
 .h3 {
   margin: 0;
-  font-weight: 300;
+  font-weight: 500;
   color: rgba(255, 255, 255, 75%);
 }
 
 .call-to-action {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   opacity: 0;
   transition: opacity 0.3s ease-out;
 
-  transform: translate(calc(var(--grid-size) * -1 - 10vw), calc((100vh - var(--grid-size)) / 2 * -1 + 50%));
-
   pointer-events: none;
+
+  transform: translate(calc(100vw - 100% - 10vw), calc(50vh - 50% + var(--grid-size) / 2));
 }
 .call-to-action > *:not(:last-of-type) {
   margin-bottom: var(--grid-size);
@@ -403,10 +345,8 @@ h1 {
 }
 
 @media (max-width: 1150px) {
-  .chess-left {
-  }
   .call-to-action {
-    transform: translate(calc(-100vw + 100% + var(--grid-size)), calc((100vh - var(--grid-size)) / 2 * -1 + 50%));
+    transform: translate(calc(var(--grid-size)), calc(50vh - 50% + var(--grid-size) / 2));
   }
 }
 @media (max-width: 700px) {
@@ -418,7 +358,7 @@ h1 {
     opacity: 40%;
   }
   .call-to-action {
-    transform: translate(calc(-100vw + 100% + var(--grid-size) / 2), calc((100vh - var(--grid-size)) / 2 * -1 + 50%));
+    transform: translate(1rem, calc(50vh - 50% + var(--grid-size) / 2));
   }
 }
 @media (max-width: 400px) {

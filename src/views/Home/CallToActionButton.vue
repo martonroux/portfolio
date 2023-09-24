@@ -34,7 +34,7 @@ export default {
   background-color: var(--white-color);
   height: var(--grid-size);
   width: calc(var(--grid-size) * 5);
-  max-width: calc(100vw - var(--grid-size));
+  max-width: calc(100vw - 2rem);
 
   cursor: pointer;
 
