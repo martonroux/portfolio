@@ -40,7 +40,7 @@ export default {
 
 header {
   position: fixed;
-  z-index: 10;
+  z-index: 12;
   top: 0;
   left: 0;
   height: var(--grid-size);
