@@ -1,15 +1,19 @@
-<script setup>
+<script setup lang="ts">
 import CallToActionButton from "@/views/Home/CallToActionButton.vue";
 import ConvinceTab from "@/views/Home/ConvinceTab.vue";
+import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
 </script>
 
 <template>
   <div class="home" @scroll="scrolled" ref="homeContent">
     <div class="scroll-forcer" ref="scrollForcer"></div>
     <div class="tabs" ref="tabs">
-      <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
-      <ConvinceTab title="SKILLS" :description="skillsDescription" />
-      <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
+      <ChangeLanguage @clicked="changeLanguage" />
+      <div class="row-div">
+        <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
+        <ConvinceTab title="SKILLS" :description="skillsDescription" />
+        <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
+      </div>
     </div>
     <div class="scroll-forcer">
       <div class="call-to-action" :class="{'show-cta': chessLeft}">
@@ -44,7 +48,7 @@ import ConvinceTab from "@/views/Home/ConvinceTab.vue";
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import router from "@/router";
 
 export default {
@@ -57,9 +61,15 @@ export default {
       gridMaxSize: 'var(--grid-size)',
       chessBoardSize: 'calc(var(--grid-size) * 8)',
       chessTransform: 'transform: translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2))',
-      backgroundDescription: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
-      skillsDescription: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
-      whyMeDescription: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work."
+      backgroundDescriptionEN: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
+      skillsDescriptionEN: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
+      whyMeDescriptionEN: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work.",
+      backgroundDescriptionFR: "J'ai commencé la programmation il y a environ 4 ans. À cette époque, je me destinais à une carrière de physicien. Cependant, les études scientifiques et la vision erronée que j'avais du métier m'ont amené à me remettre en question. Ceci a entraîné un changement radical d'orientation professionnelle qui s'est avéré être le choix le plus important de toute ma vie. La programmation est devenue à la fois mon passe-temps, mon hobbie et mon travail.",
+      skillsDescriptionFR: "J'ai des compétences dans de nombreux domaines très variés. En quelques années, j'ai pu explorer la science des données, le développement d'applications, de serveurs, et bien sûr, de sites web. Je me spécialise dans ce dernier domaine ainsi que dans celui de l'intelligence artificielle, car ce sont les sujets qui me passionnent le plus : l'intelligence artificielle pour son côté mathématique et le web pour son côté créatif.",
+      whyMeDescriptionFR: "Je suis quelqu’un de très travailleur. J’excelle dans mes études, mais je me retrouve souvent avec du temps libre. Mes premiers projets en Freelance, pour le compte d’amis et de connaissances, ainsi que les témoignages de camarades d’études, m’ont fait me rendre compte que je pouvais très bien mener une vie de Freelance en parallèle de mes études. Je suis familier avec le travail en weekend et de nuit, ce qui me permet d’être tout aussi efficace qu’un Freelance à temps plein. De plus, je n’accepterai qu’un projet à la fois, ce qui me permettra de produire du travail d’une qualité encore plus importante.",
+      backgroundDescription: '',
+      skillsDescription: '',
+      whyMeDescription: ''
     }
   },
   mounted() {
@@ -68,6 +78,9 @@ export default {
     for (let i = 0; i < sentence.length; i++) {
       this.text[i] = sentence[i];
     }
+    this.backgroundDescription = this.backgroundDescriptionEN;
+    this.skillsDescription = this.skillsDescriptionEN;
+    this.whyMeDescription = this.whyMeDescriptionEN;
 
     window.addEventListener('scroll', () => {
       this.scrolled();
@@ -133,18 +146,70 @@ export default {
       // WHEN LEFT: transform: translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - 50%));
       // WHEN LEFT, WIDTH < 1150px: transform: translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - 50%));
 
-      const width = window.innerWidth;
-      const boardSize = this.chessBoardSize.substring(5, this.chessBoardSize.length - 1);
+      const width: number = window.innerWidth;
+      const boardSize: string = this.chessBoardSize.substring(5, this.chessBoardSize.length - 1);
+      const boardOrientation: string = boardSize.includes('height') ? 'height' : 'width';
+      const chessBoardSmallHeight: number = 0.0947 * window.innerHeight * 8;
+      const chessBoardSmallWidth: number = 0.099 * width * 8;
+      const chessBoardNormal: number = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--grid-size').substring(0, 2)) * 8;
 
-      if (this.chessLeft === true) {
-        if (width < 1150) {
-          this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
-        } else {
-          this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+      if (this.chessLeft === true) { // If chessLeft is true, chessBoard goes to the left of the screen
+        if (width < 1150) { // If width too small, chessLeft goes to the right of the screen
+          switch (boardOrientation) {
+            case 'height': // If chessBoard size is defined by --chess-board-small-height
+              if (chessBoardNormal < chessBoardSmallHeight) {
+                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
+              } else {
+                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+              }
+              break;
+            case 'width': // If chessBoard size is defined by --chess-board-small-width
+              if (chessBoardNormal < chessBoardSmallWidth) {
+                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
+              } else {
+                this.chessTransform = `translate(calc(100vw - 30vw), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+              }
+              break;
+          }
+        } else { // Any other case, chessLeft goes to the left of the screen
+          switch (boardOrientation) {
+            case 'height': // If chessBoard size is defined by --chess-board-small-height
+              if (chessBoardNormal < chessBoardSmallHeight) {
+                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
+              } else {
+                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+              }
+              break;
+            case 'width': // If chessBoard size is defined by --chess-board-small-width
+              if (chessBoardNormal < chessBoardSmallWidth) {
+                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - var(--grid-size) * 8 / 2))`;
+              } else {
+                this.chessTransform = `translate(var(--grid-size), calc((100vh - var(--grid-size)) / 2 - ${boardSize} / 2))`;
+              }
+              break;
+          }
         }
-      } else {
-        this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
+      } else { // If chessLeft is false, chessBoard goes to the center of the screen
+        switch (boardOrientation) {
+          case 'height': // If chessBoard size is defined by --chess-board-small-height
+            if (chessBoardNormal < chessBoardSmallHeight) {
+              this.chessTransform = `translate(calc(100vw / 2 - var(--grid-size) * 8 / 2), calc(50vh - var(--grid-size) * 8 / 2 - var(--grid-size) / 2))`;
+            } else {
+              this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
+            }
+            break;
+          case 'width': // If chessBoard size is defined by --chess-board-small-width
+            if (chessBoardNormal < chessBoardSmallWidth) {
+              this.chessTransform = `translate(calc(100vw / 2 - var(--grid-size) * 8 / 2), calc(50vh - var(--grid-size) * 8 / 2 - var(--grid-size) / 2))`;
+            } else {
+              this.chessTransform = `translate(calc(100vw / 2 - ${boardSize} / 2), calc(50vh - ${boardSize} / 2 - var(--grid-size) / 2))`;
+            }
+            break;
+        }
       }
+    },
+    changeLanguage(lang) {
+
     },
     onClick(menu) {
       router.push(menu)
@@ -190,6 +255,14 @@ h1 {
 }
 .tabs {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  min-height: calc(100vh - var(--grid-size));
+  width: 100vw;
+}
+.row-div {
+  display: flex;
   flex-direction: row;
 
   flex-wrap: wrap;
@@ -197,9 +270,6 @@ h1 {
   gap: var(--grid-size);
   align-items: center;
   justify-content: center;
-
-  min-height: calc(100vh - var(--grid-size));
-  width: 100vw;
 }
 .chess-board {
   position: absolute;

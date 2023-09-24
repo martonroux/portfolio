@@ -23,8 +23,8 @@
 
     --grid-size: 72px;
     --grid-diagonal: 102px;
-    --chess-board-small-height: calc(0.0947 * 100vh);
-    --chess-board-small-width: calc(0.099 * 100vw);
+    --chess-board-small-height: calc(0.0947 * 100vh); /* WARNING: VALUE IS ALSO HARD CODED IN Home.vue. There was no choice */
+    --chess-board-small-width: calc(0.099 * 100vw); /* WARNING: VALUE IS ALSO HARD CODED IN Home.vue. There was no choice */
     --call-to-action-width: calc(0.714 * 100vw);
     --menu-grid-portion: calc(0.15 * 100vw);
 }
