@@ -209,7 +209,80 @@ export default {
       }
     },
     changeLanguage(lang) {
+      switch (lang) {
+        case 'fr':
+          this.changeToFrench();
+          break;
+        case 'en':
+          this.changeToEnglish();
+          break;
+      }
+    },
+    changeToEnglish() {
+      let idx = 0;
+      let backDone = false;
+      let skillsDone = false;
+      let whyMeDone = false;
 
+      const changeDescription = () => {
+        if (backDone && skillsDone && whyMeDone) {
+          return;
+        }
+
+        if (!backDone) {
+          this.backgroundDescription = this.backgroundDescription.substring(0, idx) + this.backgroundDescriptionEN[idx] + this.backgroundDescription.substring(idx + 1);          if (idx === this.backgroundDescriptionEN.length - 1) backDone = true;
+        }
+        if (!skillsDone) {
+          this.skillsDescription = this.skillsDescription.substring(0, idx) + this.skillsDescriptionEN[idx] + this.skillsDescription.substring(idx + 1);
+          if (idx === this.skillsDescriptionEN.length - 1) skillsDone = true;
+        }
+        if (!whyMeDone) {
+          this.whyMeDescription = this.whyMeDescription.substring(0, idx) + this.whyMeDescriptionEN[idx] + this.whyMeDescription.substring(idx + 1);
+          if (idx === this.whyMeDescriptionEN.length - 1) whyMeDone = true;
+        }
+
+        idx++;
+
+        setTimeout(changeDescription, 6);
+      };
+
+      this.backgroundDescription = '';
+      this.skillsDescription = '';
+      this.whyMeDescription = '';
+      changeDescription();
+    },
+    changeToFrench() {
+      let idx = 0;
+      let backDone = false;
+      let skillsDone = false;
+      let whyMeDone = false;
+
+      const changeDescription = () => {
+        if (backDone && skillsDone && whyMeDone) {
+          return;
+        }
+
+        if (!backDone) {
+          this.backgroundDescription = this.backgroundDescription.substring(0, idx) + this.backgroundDescriptionFR[idx] + this.backgroundDescription.substring(idx + 1);          if (idx === this.backgroundDescriptionFR.length - 1) backDone = true;
+        }
+        if (!skillsDone) {
+          this.skillsDescription = this.skillsDescription.substring(0, idx) + this.skillsDescriptionFR[idx] + this.skillsDescription.substring(idx + 1);
+          if (idx === this.skillsDescriptionFR.length - 1) skillsDone = true;
+        }
+        if (!whyMeDone) {
+          this.whyMeDescription = this.whyMeDescription.substring(0, idx) + this.whyMeDescriptionFR[idx] + this.whyMeDescription.substring(idx + 1);
+          if (idx === this.whyMeDescriptionFR.length - 1) whyMeDone = true;
+        }
+
+        idx++;
+
+        setTimeout(changeDescription, 6);
+      };
+
+      this.backgroundDescription = '';
+      this.skillsDescription = '';
+      this.whyMeDescription = '';
+      changeDescription();
     },
     onClick(menu) {
       router.push(menu)
@@ -268,7 +341,6 @@ h1 {
   flex-wrap: wrap;
 
   gap: var(--grid-size);
-  align-items: center;
   justify-content: center;
 }
 .chess-board {
