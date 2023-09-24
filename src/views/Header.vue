@@ -1,9 +1,11 @@
-<script setup>
+<script setup lang="ts">
 
 </script>
 
 <template>
-  <div class="header">
+  <div class="header" :style="{
+    backgroundColor: headerBackground
+  }">
     <div @click="onClick" class="menu-button" :class="{'click-active': clickActive, 'click-inactive': !clickActive}">
       <span class="line-1" />
       <span class="line-2" />
@@ -27,11 +29,12 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
-      clickActive: false
+      clickActive: false,
+      headerBackground: 'transparent'
     }
   },
   emits: ["clicked"],
@@ -41,14 +44,29 @@ export default {
       type: Boolean
     }
   },
+  mounted() {
+    this.clickActive = this.isShown;
+
+    window.addEventListener('scroll', this.scrolled);
+    this.scrolled();
+  },
+  unmounted() {
+    window.removeEventListener('scroll', this.scrolled);
+  },
   methods: {
     onClick() {
       this.clickActive = !this.clickActive;
       this.$emit('clicked', this.clickActive);
+    },
+    scrolled() {
+      const scrollY: number = window.scrollY;
+
+      if (scrollY > 10) {
+        this.headerBackground = 'var(--black-color)';
+      } else {
+        this.headerBackground = 'transparent';
+      }
     }
-  },
-  mounted() {
-    this.clickActive = this.isShown;
   },
   watch: {
     isShown(newValue, _) {
@@ -65,10 +83,11 @@ export default {
 .header {
   height: var(--grid-size);
   width: 100%;
-  background-color: transparent;
 
   position: fixed;
   z-index: 10;
+
+  transition: background-color 0.3s ease-in-out;
 }
 
 .menu-button {

@@ -27,7 +27,7 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
   </div>
   <div class="fixed-content">
     <div class="blurr-background" :style="{
-      backgroundColor: `rgba(0, 0, 0, ${blurr}%)`,
+      backgroundColor: 'rgba(15, 15, 15, 1%)',
       backdropFilter: `blur(${blurr}px)`
     }">
     </div>
@@ -101,7 +101,16 @@ export default {
     this.setChessTransforms();
   },
   unmounted() {
-    window.removeEventListener('scroll', this.scrolled);
+    window.removeEventListener('scroll', () => {
+      this.scrolled();
+      this.setGridSize();
+      this.setChessTransforms();
+    });
+    window.removeEventListener('resize', () => {
+      this.scrolled();
+      this.setGridSize();
+      this.setChessTransforms();
+    });
   },
   methods: {
     scrolled() {
@@ -116,15 +125,21 @@ export default {
       if (!scrollForcer || !tabs) return;
       const height = scrollForcer.offsetHeight;
       const tabsHeight = tabs.offsetHeight;
+      const coefficient: number = 100; // "Amount" of blur, higher the value means lower the blur.
+      const maxBlur: number = 8; // Maximum amount of blur
+      const bottomThreshold: number = 50; // Space at the bottom that will be clear (a value of 50 means that the last 50 pixels will have a blur of 0)
 
       if (scrollY < height) {
-        this.blurr = scrollY / 100;
+        this.blurr = scrollY / coefficient;
       } else {
-        this.blurr = (height + tabsHeight - scrollY - 50) / 100;
+        const x: number = (maxBlur * coefficient) / (tabsHeight - bottomThreshold);
+
+        this.blurr = x * (height + tabsHeight - scrollY - bottomThreshold) / coefficient;
+
         if (this.blurr < 0) this.blurr = 0;
       }
-      if (this.blurr > 8) {
-        this.blurr = 8;
+      if (this.blurr > maxBlur) {
+        this.blurr = maxBlur;
       }
       this.chessLeft = scrollY > (height + tabsHeight - 180);
     },

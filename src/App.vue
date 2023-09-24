@@ -8,7 +8,9 @@ import MyHeader from "@/views/Header.vue";
     <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
   <Menu :is-shown="showMenu" @clicked="onMenuPageClick" />
-  <router-view />
+  <div class="content">
+    <router-view />
+  </div>
 </template>
 
 <script>
@@ -43,7 +45,6 @@ header {
   left: 0;
   height: var(--grid-size);
   width: 100vw;
-  background-color: transparent;
 }
 
 </style>
