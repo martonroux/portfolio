@@ -10,9 +10,9 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
     <div class="tabs" ref="tabs" style="z-index: 10">
       <ChangeLanguage @clicked="changeLanguage" />
       <div class="row-div">
-        <ConvinceTab title="BACKGROUND" :description="backgroundDescription" />
-        <ConvinceTab title="SKILLS" :description="skillsDescription" />
-        <ConvinceTab title="WHY ME?" :description="whyMeDescription" />
+        <ConvinceTab title="BACKGROUND" :description="backgroundDescription" :list-attributes="getBackgroundAttributes(lang)" />
+        <ConvinceTab title="SKILLS" :description="skillsDescription" :list-attributes="getSkillsAttributes(lang)" />
+        <ConvinceTab title="WHY ME?" :description="whyMeDescription" :list-attributes="getWhyMeAttributes(lang)" />
       </div>
     </div>
     <div class="scroll-forcer">
@@ -53,6 +53,7 @@ import ChangeLanguage from "@/views/Home/ChangeLanguage.vue";
 <script lang="ts">
 import router from "@/router";
 import {computeChessTransform} from "@/views/Home/ts_components/computeChessTransform";
+import {getBackgroundAttributes, getSkillsAttributes, getWhyMeAttributes} from "@/views/Home/ts_components/getConvinceTabAttributes";
 
 export default {
   data() {
@@ -65,9 +66,10 @@ export default {
       chessBoardSize: 'calc(var(--grid-size) * 8)',
       chessTransform: 'translate(calc(100vw / 2 - 50%), calc(50vh - 50% - var(--grid-size) / 2))',
       ctaTransform: '',
-      backgroundDescriptionEN: "I started programming about 4 years ago. At that time, I was on track to become a physicist, but I was greatly disappointed by my scientific studies and had an incorrect vision of what a physicist does on a daily basis. This led to a radical change in my career path, which turned out to be the best decision I've ever made. Programming has become both my hobby and my job.",
-      skillsDescriptionEN: "I am skilled in multiple fields related to computer science. Over the past few years, I've explored data science, app and server development, and, of course, web development. I specialize in AI and web development because these are the two areas I am most passionate about: AI for its mathematical aspects and web development for its creative side.",
-      whyMeDescriptionEN: "I am a really hard-working person. I excel in my studies, but I often have a bunch of time free on my hands. My first Freelance projects, that I conducted for friends, as well as testimonials from classmates, made me realise that I could totally combine my studies to a Freelance life. I’m used to working on weekends and late at night, which allows me to be just as efficient as a full time Freelancer. Moreover, I’ll only accept one project at a time, which will allow me to produce even higher quality work.",
+      lang: '',
+      backgroundDescriptionEN: "I have a strong background in programming through various personnal projects, as well as my studies. I started Web Development about a year ago, with a lot of personnal projects, as well as my studies and some professionnal experience in AI and FullStack Development.",
+      skillsDescriptionEN: "I am skilled in multiple fields of computer science. The most important one is FullStack development with 1 year of work in both VueJS (Front-End) and FastAPI (Back-End) frameworks. I also have half a year of experience in Artificial Intelligence through my Internship.",
+      whyMeDescriptionEN: "I am a hard working Freelancer, and I am very rigorous in my work. One of the things where I excel is doing clean code. I provide clean and detailed work just in case someone (including myself) needs to work on that code again in the future. Also, having clean code is often a guaranty of better performance, and better overral quality of code.",
       backgroundDescriptionFR: "J'ai commencé la programmation il y a environ 4 ans. À cette époque, je me destinais à une carrière de physicien. Cependant, les études scientifiques et la vision erronée que j'avais du métier m'ont amené à me remettre en question. Ceci a entraîné un changement radical d'orientation professionnelle qui s'est avéré être le choix le plus important de toute ma vie. La programmation est devenue à la fois mon passe-temps, mon hobbie et mon travail.",
       skillsDescriptionFR: "J'ai des compétences dans de nombreux domaines très variés. En quelques années, j'ai pu explorer la science des données, le développement d'applications, de serveurs, et bien sûr, de sites web. Je me spécialise dans ce dernier domaine ainsi que dans celui de l'intelligence artificielle, car ce sont les sujets qui me passionnent le plus : l'intelligence artificielle pour son côté mathématique et le web pour son côté créatif.",
       whyMeDescriptionFR: "Je suis quelqu’un de très travailleur. J’excelle dans mes études, mais je me retrouve souvent avec du temps libre. Mes premiers projets en Freelance, pour le compte d’amis et de connaissances, ainsi que les témoignages de camarades d’études, m’ont fait me rendre compte que je pouvais très bien mener une vie de Freelance en parallèle de mes études. Je suis familier avec le travail en weekend et de nuit, ce qui me permet d’être tout aussi efficace qu’un Freelance à temps plein. De plus, je n’accepterai qu’un projet à la fois, ce qui me permettra de produire du travail d’une qualité encore plus importante.",
@@ -99,6 +101,7 @@ export default {
     this.scrolled();
     this.setGridSize();
     this.setChessTransforms();
+    this.lang = document.documentElement.lang;
   },
   unmounted() {
     window.removeEventListener('scroll', () => {
@@ -164,6 +167,8 @@ export default {
       this.chessTransform = computeChessTransform(this.chessBoardSize, this.chessLeft);
     },
     changeLanguage(lang) {
+      this.lang = lang;
+
       switch (lang) {
         case 'fr':
           this.changeToFrench();

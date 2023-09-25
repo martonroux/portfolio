@@ -16,12 +16,6 @@
     </div>
     <span class="inter-line" />
     <div class="text-container">
-      <button class="hover-background" @click="onClick('/contact')">
-        <span class="h5">CONTACT</span>
-      </button>
-    </div>
-    <span class="inter-line" />
-    <div class="text-container">
       <button class="hover-background" @click="onClick('/work')">
         <span class="h5">WORK</span>
       </button>
@@ -30,6 +24,12 @@
     <div class="text-container">
       <button class="hover-background" @click="onClick('/stack')">
         <span class="h5">STACK</span>
+      </button>
+    </div>
+    <span class="inter-line" />
+    <div class="text-container">
+      <button class="hover-background" @click="onClick('/contact')">
+        <span class="h5">CONTACT</span>
       </button>
     </div>
     <span class="inter-line" />

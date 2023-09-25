@@ -9,6 +9,12 @@
       <h1 class="h4">{{ title }}</h1>
     </div>
     <div class="description-wrapper">
+      <div class="attributes-row">
+        <div class="attribute" v-for="attr in listAttributes">
+          <img :src="attr.logo" :alt="attr.alt">
+          <p>{{ attr.text }}</p>
+        </div>
+      </div>
       <p>{{ description }}</p>
     </div>
   </div>
@@ -24,6 +30,9 @@ export default {
     description: {
       required: true,
       type: String
+    },
+    listAttributes: {
+      required: true
     }
   }
 }
@@ -45,7 +54,7 @@ export default {
 .description-wrapper {
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 65%);
-  padding: calc(var(--grid-size) / 2);
+  padding: calc(var(--grid-size) / 3);
 
 }
 .square {
@@ -66,6 +75,31 @@ export default {
 p {
   margin: 0;
   line-height: 1.25;
+}
+img {
+  height: calc(var(--grid-size) / 2);
+  width: calc(var(--grid-size) / 2);
+}
+.attributes-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  justify-content: center;
+  gap: 1rem;
+
+  margin-bottom: calc(var(--grid-size) / 3);
+}
+.attribute {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  align-items: center;
+
+  background-color: var(--attribute-color);
+
+  padding: 0.4rem;
 }
 @media (max-width: 470px) {
   .h4 {
