@@ -101,7 +101,6 @@ export default {
   background-color: transparent;
 
   cursor: pointer;
-  transition: transform 0.4s ease-in-out;
 }
 .menu-button > span {
   height: 2px;
@@ -114,26 +113,29 @@ export default {
 .line-1 {
   /* Ligne du haut */
 
-  transform-origin: bottom right;
+  transform-origin: center right;
+  transform: translateY(1px);
 }
 .line-2 {
   /* Ligne à droite */
 
-  transform: rotate(-90deg);
-  transform-origin: center right;
+  transform: translateX(-2px) translateY(1px) rotate(-90deg);
+  transform-origin: top right;
 }
 .line-3 {
   /* Ligne en bas */
 
   top: calc(var(--grid-size) / 2);
-  transform-origin: bottom left;
+
+  transform: translateY(-1px);
+  transform-origin: center left;
 }
 .line-4 {
   /* Ligne à gauche */
 
   top: calc(var(--grid-size) / 2);
+  transform: translateX(1px) rotate(-90deg);
 
-  transform: rotate(-90deg);
   transform-origin: center left;
 }
 
@@ -147,7 +149,7 @@ export default {
   transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2)));
 }
 .click-active > .line-4 {
-  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2) - 1px)) translateY(-1px);
+  transform: rotate(-45deg) translateX(calc(((var(--grid-diagonal) / 2 - 100%) / 2)));
 }
 
 .portfolio-text {
