@@ -1,6 +1,6 @@
 import {createRouter, createWebHashHistory} from "vue-router";
 import Home from "../views/Home/Home.vue";
-import Contact from "../views/Contact.vue";
+import Contact from "../views/Contact/Contact.vue";
 import Work from "@/views/Work.vue";
 import Stack from "@/views/Stack.vue";
 
