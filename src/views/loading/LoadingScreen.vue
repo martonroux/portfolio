@@ -72,12 +72,15 @@ export default {
 
 .morpion-grid {
   display: block;
+
   width: calc(var(--grid-size) * 6);
   height: calc(var(--grid-size) * 6);
 
   align-items: center;
   justify-content: center;
   text-align: center;
+
+  margin-top: calc(var(--grid-size) * 3);
 }
 .vertical-line {
   position: absolute;

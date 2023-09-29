@@ -57,7 +57,7 @@ header {
   left: 0;
 
   width: 100vw;
-  height: 100%;
+  height: 100vh;
 
   animation: loadingDisappear 1s ease 1 1.8s forwards;
 
