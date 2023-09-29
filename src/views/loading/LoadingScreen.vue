@@ -71,10 +71,7 @@ export default {
 <style scoped>
 
 .morpion-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 0;
-
+  display: block;
   width: calc(var(--grid-size) * 6);
   height: calc(var(--grid-size) * 6);
 
@@ -93,10 +90,12 @@ export default {
   animation: verticalLineAppear 1.6s ease 1;
 }
 .vertical-line1 {
-  transform: translate(calc(var(--grid-size) * 2), calc(50% - var(--grid-size) * 3));
+  transform: translate(calc(var(--grid-size) * -1), calc(var(--grid-size) * -2));
 }
 .vertical-line2 {
-  transform: translate(calc(var(--grid-size) * 4), calc(-50% + var(--grid-size) * 3));
+  transform-origin: top center;
+
+  transform: translate(calc(var(--grid-size) * 1), calc(var(--grid-size) * 4)) rotate(180deg);
 }
 
 .horizontal-line {
@@ -110,10 +109,13 @@ export default {
   animation: horizontalLineAppear 1.6s ease 1;
 }
 .horizontal-line1 {
-  transform: translateY(calc(var(--grid-size) * -1));
+  transform: translateX(calc(var(--grid-size) * -3));
 }
 .horizontal-line2 {
-  transform: translate(calc(-100% + var(--grid-size) * 6), var(--grid-size));
+  transform-origin: left center;
+
+  transform: translate(calc(var(--grid-size) * 3), calc(var(--grid-size) * 2)) rotate(180deg);
+
 }
 .line-1,
 .line-2 {
