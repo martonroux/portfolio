@@ -1,6 +1,7 @@
 <script setup>
 import Menu from "@/views/Menu/Menu.vue";
 import MyHeader from "@/views/Header.vue";
+import LoadingScreen from "@/views/loading/LoadingScreen.vue";
 </script>
 
 <template>
@@ -8,6 +9,9 @@ import MyHeader from "@/views/Header.vue";
     <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
   <Menu :is-shown="showMenu" @clicked="onMenuPageClick" />
+  <div class="loading-screen-container">
+    <LoadingScreen />
+  </div>
   <div class="content">
     <router-view />
   </div>
@@ -45,6 +49,45 @@ header {
   left: 0;
   height: var(--grid-size);
   width: 100vw;
+}
+
+.loading-screen-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+  height: 100%;
+
+  animation: loadingDisappear 1s ease 1 1.8s forwards;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.content {
+  animation: routerAppear 1s ease 1 2.2s backwards;
+}
+
+@keyframes loadingDisappear {
+  from {
+    opacity: 100%;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes routerAppear {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 </style>
