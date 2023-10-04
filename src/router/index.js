@@ -27,7 +27,10 @@ const router = createRouter({
             component: Stack
         }
     ],
-    history: createWebHashHistory()
+    history: createWebHashHistory(),
+    scrollBehavior(_) {
+        return { x: 0, y: 0 };
+    }
 })
 
 export default router
