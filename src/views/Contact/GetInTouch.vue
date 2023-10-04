@@ -10,7 +10,7 @@ import GetInTouchTab from "@/views/Contact/GetInTouchTab.vue";
     </div>
     <div class="description-wrapper">
       <div class="click-to-copy">
-        <img src="/Click%20SVG.svg" alt="click to copy">
+        <img src="/Click-SVG.svg" alt="click to copy">
         <p>Click to copy</p>
       </div>
       <GetInTouchTab class="phone" alt="phone" text="06 26 28 90 88" logo="/phone.svg" type="copy" />
