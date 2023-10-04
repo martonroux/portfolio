@@ -3,6 +3,7 @@ import MenuSmallHeight from "@/views/Menu/MenuSmallHeight.vue";
 </script>
 
 <template>
+  <title>Menu, Portfolio</title>
   <div class="menu" ref="menu" :style="{
         display: (display || isShown) ? 'block' : 'none',
         backgroundColor: isReallyShow ? 'rgba(20, 20, 20, 50%)' : 'transparent',

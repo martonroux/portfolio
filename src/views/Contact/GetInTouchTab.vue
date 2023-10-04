@@ -5,7 +5,7 @@
 <template>
   <button class="get-in-touch-tab" @click="onClick">
     <img :src="logo" :alt="alt">
-    {{ myText }}
+    <span>{{ myText }}</span>
   </button>
 </template>
 
@@ -61,33 +61,8 @@ export default {
       else
         this.myText = 'Copied! ✅';
       setTimeout(() => {
-        // this.showClicked = 'none';
         this.myText = trueText;
       }, 1000);
-    },
-    noClipboardAPI() {
-      const textElement = document.querySelector('.get-in-touch-tab');
-
-      const originalContentEditable = textElement.getAttribute('contentEditable');
-      const originalReadOnly = textElement.getAttribute('readOnly');
-      textElement.setAttribute('contentEditable', 'true');
-      textElement.setAttribute('readOnly', 'false');
-
-      const range = document.createRange();
-      range.selectNodeContents(textElement);
-      const selection = window.getSelection();
-      selection.removeAllRanges();
-      selection.addRange(range);
-
-      document.execCommand('copy');
-
-      textElement.setAttribute('contentEditable', originalContentEditable || 'false');
-      textElement.setAttribute('readOnly', originalReadOnly || 'true');
-
-      window.getSelection().removeAllRanges();
-      setTimeout(() => {
-        textElement.blur();
-      }, 100);
     },
     clipboardAPI(copyText) {
       if (navigator.clipboard) {
@@ -112,10 +87,10 @@ export default {
         try {
           const successful = document.execCommand('copy');
           if (!successful) {
-            console.error('Failed to copy using execCommand.');
+            alert('Failed to copy using execCommand.');
           }
         } catch (err) {
-          console.error('Failed to execute document.execCommand(\'copy\'):', err);
+          alert('Failed to execute document.execCommand(\'copy\'):', err);
         }
         document.body.removeChild(textArea);
       }
@@ -137,7 +112,6 @@ export default {
   font-size: 1rem;
 
   height: calc(var(--grid-size) * 0.7);
-  min-width: calc(var(--grid-size) * 4);
   width: 100%;
 
   padding: 0.4rem 0.8rem;
@@ -152,11 +126,21 @@ export default {
 
   transition: transform 0.3s ease-in-out;
   cursor: pointer;
+
+  overflow: hidden; /* make sure it hides the content that overflows */
+  white-space: nowrap; /* don't break the line */
+}
+
+.get-in-touch-tab span {
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; /* give the beautiful '...' effect */
 }
 
 img {
-  height: calc(var(--grid-size) / 2);
-  width: calc(var(--grid-size) / 2);
+  height: calc(var(--grid-size) * 0.4);
+  width: calc(var(--grid-size) * 0.4);
 }
 
 @media (hover: hover) {

@@ -5,6 +5,7 @@ import LoadingScreen from "@/views/loading/LoadingScreen.vue";
 </script>
 
 <template>
+  <title>Marton Roux: Fullstack Web Developer & Front-end Specialist</title>
   <header>
     <MyHeader @clicked="onMenuButtonClick" :is-shown="showMenu" />
   </header>
@@ -77,6 +78,7 @@ header {
 
   to {
     opacity: 0;
+    display: none;
   }
 }
 
