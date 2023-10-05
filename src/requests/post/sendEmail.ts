@@ -1,4 +1,5 @@
 import axios from "axios";
+import {fastapiServer} from "../fastapiServer";
 
 
 export const sendEmail = async (email: string, phone: string, message: string, firstName: string, lastName: string) => {
@@ -12,7 +13,7 @@ export const sendEmail = async (email: string, phone: string, message: string, f
 
     return axios({
         method: 'post',
-        url: 'http://localhost:8000/send-email',
+        url: fastapiServer('send-email'),
         data: bodyFormData,
         headers: {'Content-Type': 'multipart/form-data'}
     });
