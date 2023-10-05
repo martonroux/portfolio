@@ -1,4 +1,4 @@
-import {createRouter, createWebHashHistory} from "vue-router";
+import {createRouter, createWebHistory} from "vue-router";
 import Home from "../views/Home/Home.vue";
 import Contact from "../views/Contact/Contact.vue";
 import Work from "@/views/Work.vue";
@@ -27,7 +27,7 @@ const router = createRouter({
             component: Stack
         }
     ],
-    history: createWebHashHistory(),
+    history: createWebHistory(),
     scrollBehavior(_) {
         return { x: 0, y: 0 };
     }
