@@ -22,7 +22,7 @@
       <img class="mandatory-star" src="/mandatory-star.svg" alt="mandatory">
     </div>
     <button class="submit">
-      <span class="submit-span">Submit</span>
+      <span class="submit-span" style="color: var(--black-color)">Submit</span>
       <svg class="tick-img" :class="{'animate-tick': animateTick}" width="800px" height="800px" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
         <rect width="16" height="16" id="icon-bound" fill="none" />
         <path d="M2,9.014L3.414,7.6L6.004,10.189L12.593,3.6L14.007,5.014L6.003,13.017L2,9.014Z" />
