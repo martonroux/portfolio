@@ -79,6 +79,7 @@ header {
   to {
     opacity: 0;
     display: none;
+    z-index: -1;
   }
 }
 
